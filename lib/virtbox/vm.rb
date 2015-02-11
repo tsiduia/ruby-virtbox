@@ -38,14 +38,18 @@ module VirtBox
     end
 
     def revert_to_snapshot(snap)
-      %{VBoxManage snapshot #{@id} restore #{snap}}
+      %x{VBoxManage snapshot #{@id} restore #{snap}}
+    end
+
+    def stop(name)
+      %x{VBoxManage controlvm #{@id} poweroff}
     end
 
     def start(options = {})
       if options[:headless] && options[:headless] == true
-        %{VBoxManage startvm #{@id} --type headless}
+        %x{VBoxManage startvm #{@id} --type headless}
       else
-        %{VBoxManage startvm #{@id} --type gui}
+        %x{VBoxManage startvm #{@id} --type gui}
       end
     end
 
