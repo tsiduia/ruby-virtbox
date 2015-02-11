@@ -43,7 +43,9 @@ module VirtBox
 
     def start(options = {})
       if options[:headless] && options[:headless] == true
-        puts "headless"
+        %{VBoxManage startvm #{@id} --type headless}
+      else
+        %{VBoxManage startvm #{@id} --type gui}
       end
     end
 
